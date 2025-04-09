@@ -1,35 +1,40 @@
 package com.bvivg.minigame.entities;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@Entity
+@MappedSuperclass
 @Setter
 @Getter
-public class BaseEntity<T> {
+public abstract class BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Long id;
-  protected Date created_at;
-  protected Date updated_at;
+
+  @Column(name = "created_at", nullable = false, updatable = false)
+  protected LocalDateTime created_at;
+
+  @Column(name = "updated_at")
+  protected LocalDateTime updated_at;
 
   @PrePersist
   protected void onCreate() {
-    this.created_at = new Date(System.currentTimeMillis());
-    this.updated_at = new Date(System.currentTimeMillis());
+    this.created_at = LocalDateTime.now();
+    this.updated_at = LocalDateTime.now();
   }
 
   @PreUpdate
   protected void onUpdate() {
-    this.updated_at = new Date(System.currentTimeMillis());
+    this.updated_at = LocalDateTime.now();
   }
+
 }
