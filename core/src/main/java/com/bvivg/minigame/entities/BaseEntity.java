@@ -21,20 +21,20 @@ public abstract class BaseEntity {
   protected Long id;
 
   @Column(name = "created_at", nullable = false, updatable = false)
-  protected LocalDateTime created_at;
+  protected LocalDateTime createdAt;
 
   @Column(name = "updated_at")
-  protected LocalDateTime updated_at;
+  protected LocalDateTime updatedAt;
 
   @PrePersist
   protected void onCreate() {
-    this.created_at = LocalDateTime.now();
-    this.updated_at = LocalDateTime.now();
+    this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
   }
 
   @PreUpdate
   protected void onUpdate() {
-    this.updated_at = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
   }
 
 }
