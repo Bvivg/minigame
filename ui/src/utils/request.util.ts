@@ -71,7 +71,7 @@ export default class Request {
   // === Instance methods ===
 
   async get<T>(
-    subUrl: string = "",
+    subUrl: string | number = "",
     config: AxiosRequestConfig = {}
   ): Promise<T> {
     return await Request.get<T>(this.buildUrl(subUrl), config);
@@ -79,7 +79,7 @@ export default class Request {
 
   async post<T, R>(
     data: R,
-    subUrl: string = "",
+    subUrl: string | number = "",
     config: AxiosRequestConfig = {}
   ): Promise<T> {
     return await Request.post<T, R>(this.buildUrl(subUrl), data, config);
@@ -87,20 +87,30 @@ export default class Request {
 
   async patch<T, R>(
     data: R,
-    subUrl: string = "",
+    subUrl: string | number = "",
     config: AxiosRequestConfig = {}
   ): Promise<T> {
     return await Request.patch<T, R>(this.buildUrl(subUrl), data, config);
   }
 
   async delete<T>(
-    subUrl: string = "",
+    subUrl: string | number = "",
     config: AxiosRequestConfig = {}
   ): Promise<T> {
     return await Request.delete<T>(this.buildUrl(subUrl), config);
   }
 
-  private buildUrl(subUrl?: string): string {
-    return subUrl ? `${this.baseUrl}/${subUrl}` : this.baseUrl;
+  private buildUrl(subUrl?: string | number): string {
+    const base = this.baseUrl.trim();
+
+    if (subUrl === undefined || subUrl === null || subUrl === "") {
+      return base;
+    }
+
+    const sub = String(subUrl).trim();
+    const normalizedBase = base.endsWith("/") ? base.slice(0, -1) : base;
+    const normalizedSub = sub.startsWith("/") ? sub.slice(1) : sub;
+
+    return `${normalizedBase}/${normalizedSub}`;
   }
 }

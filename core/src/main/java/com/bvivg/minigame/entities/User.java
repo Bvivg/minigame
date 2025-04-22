@@ -1,7 +1,11 @@
 package com.bvivg.minigame.entities;
 
+import com.bvivg.minigame.enums.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +22,7 @@ public class User extends BaseEntity {
   protected String password;
   @Column(name = "avatar", nullable = true)
   protected String avatar;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "role", nullable = false)
+  protected Role role;
 }

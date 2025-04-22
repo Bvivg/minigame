@@ -1,14 +1,14 @@
 package com.bvivg.minigame.entities;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,21 +20,11 @@ public abstract class BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Long id;
 
+  @CreationTimestamp
   @Column(name = "created_at", nullable = false, updatable = false)
-  protected LocalDateTime createdAt;
+  protected Date createdAt;
 
+  @CreationTimestamp
   @Column(name = "updated_at")
-  protected LocalDateTime updatedAt;
-
-  @PrePersist
-  protected void onCreate() {
-    this.createdAt = LocalDateTime.now();
-    this.updatedAt = LocalDateTime.now();
-  }
-
-  @PreUpdate
-  protected void onUpdate() {
-    this.updatedAt = LocalDateTime.now();
-  }
-
+  protected Date updatedAt;
 }

@@ -1,6 +1,5 @@
 package com.bvivg.minigame.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bvivg.minigame.entities.User;

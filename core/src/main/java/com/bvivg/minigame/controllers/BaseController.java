@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.bvivg.minigame.entities.BaseEntity;
 import com.bvivg.minigame.services.BaseService;
+
 import org.springframework.web.bind.annotation.PathVariable;
 
 public class BaseController<E extends BaseEntity> {
